@@ -36,7 +36,6 @@ try
     Console.WriteLine($"\nКоличество глав - {t.CurentChapter}");
     Console.WriteLine($"\n{t.NovelFinished}");
     Console.WriteLine($"\nПоследнее обновление - {t.LatestAddition}");
-    Console.WriteLine($"{t.UriBook}");
 }
 catch (Exception ex)
 {
