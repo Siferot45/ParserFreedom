@@ -27,11 +27,10 @@ namespace ParserFreedom.Getters
             {
                 Title = doc.GetTextBySelector("/html/body/div[1]/main/div/div[2]/div[1]/div[2]/h1"),
                 CurentChapter = doc.GetTextBySelector("(//div[contains(@class,'data-value')])[8]"),
-                NovelFinished = doc.GetTextBySelector("/html/body/div[1]/main/div/div[2]/div[1]/div[2]/div[7]/div[2]")
+                NovelFinished = doc.GetTextBySelector("/html/body/div[1]/main/div/div[2]/div[1]/div[2]/div[7]/div[2]"),
+                LatestAddition = doc.GetTextBySelector("/html/body/div[1]/main/div/div[2]/form/div[2]/div[1]/div[2]")
             };
-            Console.WriteLine(novel.Title);
-            Console.WriteLine(novel.CurentChapter);
-            Console.WriteLine(novel.NovelFinished);
+            
             return novel;
         }
         private string TitleTranslate(string rawTitle)

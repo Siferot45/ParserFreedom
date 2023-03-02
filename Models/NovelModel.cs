@@ -11,6 +11,10 @@
         /// </summary>
         public string CurentChapter { get; set; }
         /// <summary>
+        /// Gоследние добавление глав
+        /// </summary>
+        public string LatestAddition { get; set; }
+        /// <summary>
         /// Chapter model
         /// </summary>
         public IEnumerable<ChapterModel> Chapters { get; set; } = new List<ChapterModel>();
@@ -29,6 +33,10 @@
         public NovelModel()
         {
 
+        }
+        public override string ToString()
+        {
+            return $"fsfsd {Title}"; 
         }
 
     }

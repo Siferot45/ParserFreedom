@@ -26,12 +26,17 @@ using var getterConfig = new HttpConfig(client, cookieContainer);
 
 Console.WriteLine("Ведите название книги.");
 var novelName = "Сильнейшая Система Убийцы Драконов";
+
 try
 {
-    var i = new FreedomInfoGetter(getterConfig);
-
-    var t = await i.Get(novelName);
-    
+    var novelInfo = new FreedomInfoGetter(getterConfig);
+    var t = await novelInfo.Get(novelName);
+    Console.Clear();
+    Console.WriteLine($"{t.Title}");
+    Console.WriteLine($"\nКоличество глав - {t.CurentChapter}");
+    Console.WriteLine($"\n{t.NovelFinished}");
+    Console.WriteLine($"\nПоследнее обновление - {t.LatestAddition}");
+    Console.WriteLine($"{t.UriBook}");
 }
 catch (Exception ex)
 {
