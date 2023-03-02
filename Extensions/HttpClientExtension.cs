@@ -19,7 +19,7 @@ namespace ParserFreedom.Extensions
         /// <param name="uri"></param>
         /// <param name="errorTimeout"></param>
         /// <returns></returns>
-        public static async Task<HttpResponseMessage> GetWithTriesAsync(this HttpClient client, Uri uri, 
+        public static async Task<HttpResponseMessage> GetWithTriesAsync(this HttpClient client, Uri uri,
                                                                              TimeSpan errorTimeout = default)
         {
             for (int i = 0; i < MaxTryCount; i++)
@@ -52,7 +52,14 @@ namespace ParserFreedom.Extensions
         {
             Console.WriteLine($"Сервер не успевает ответить");
         }
-        public static async Task<HtmlDocument> GetHtmlDocWithTriesAsunc(this HttpClient client, Uri uri,
+        /// <summary>
+        /// Отправка Get запроса. Преобразование ответа в Html
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="uri"></param>
+        /// <param name="encoding"></param>
+        /// <returns>HtmlDocument</returns>
+        public static async Task<HtmlDocument> GetHtmlDocWithTriesAsync(this HttpClient client, Uri uri,
                                                                              Encoding encoding = null)
         {
             using var response = await client.GetWithTriesAsync(uri);

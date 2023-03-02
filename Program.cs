@@ -2,24 +2,38 @@
 using ParserFreedom.Getters;
 using ParserFreedom.Models;
 using System.Net;
+using System.Reflection;
+using System.Text;
+using TempFolder;
+
+var cookieContainer = new CookieContainer();
+
+using var handler = new HttpClientHandler
+{
+    AutomaticDecompression = DecompressionMethods.GZip |
+                             DecompressionMethods.Deflate |
+                             DecompressionMethods.Brotli,
+    ServerCertificateCustomValidationCallback = (_, _, _, _) => true,
+    CookieContainer = cookieContainer,
+    Proxy = null,
+    UseProxy = false
+};
 
 
-using var client = new HttpClient();
-using var getter = new HttpConfig(client);
+using var client = new HttpClient(handler);
+
+using var getterConfig = new HttpConfig(client, cookieContainer);
+
 Console.WriteLine("Ведите название книги.");
-var novelName = Console.ReadLine();
+var novelName = "Сильнейшая Система Убийцы Драконов";
 try
 {
-    var i = new FreedomInfoGetter(getter);
-    
-    i.Get(novelName);
+    var i = new FreedomInfoGetter(getterConfig);
+
+    var t = await i.Get(novelName);
     
 }
-catch (Exception)
+catch (Exception ex)
 {
-    throw;
+    Console.WriteLine(ex.Message);
 }
-
-
-
-

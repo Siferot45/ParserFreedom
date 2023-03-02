@@ -12,7 +12,7 @@ namespace ParserFreedom.Extensions
         /// <returns></returns>
         public static string CharacterReplacement(this string rawSentence)
         {
-            return Regex.Replace(rawSentence, "[!\"#$%&'()*+,-./—:;<=>?@\\[\\]^_`{|}~]", string.Empty).ToLower();
+            return Regex.Replace(rawSentence, "[!\"#$%&'()*+«»,-/.—:;<=>?@\\[\\]^_`{|}~]", string.Empty).ToLower();
         }
         /// <summary>
         /// Удаление лишних пробелов

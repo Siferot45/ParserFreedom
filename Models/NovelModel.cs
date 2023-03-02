@@ -9,7 +9,7 @@
         /// <summary>
         /// Number of chapters
         /// </summary>
-        public int CurentChapter { get; set; }
+        public string CurentChapter { get; set; }
         /// <summary>
         /// Chapter model
         /// </summary>
@@ -17,7 +17,7 @@
         /// <summary>
         /// Is the novel finished
         /// </summary>
-        public bool NovelFinished { get; set; }
+        public string NovelFinished { get; set; }
         /// <summary>
         /// Uri novel location
         /// </summary>
@@ -25,6 +25,10 @@
         public NovelModel(Uri uri)
         {
             UriBook = uri;
+        }
+        public NovelModel()
+        {
+
         }
 
     }
