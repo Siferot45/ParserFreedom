@@ -17,6 +17,5 @@ namespace ParserFreedom.Prints
             Console.WriteLine($"\n{novel.NovelFinished}");
             Console.WriteLine($"\nПоследнее обновление - {novel.LatestAddition}");
         }
-       
     }
 }

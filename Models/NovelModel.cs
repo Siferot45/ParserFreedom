@@ -11,7 +11,7 @@
         /// </summary>
         public string CurentChapter { get; set; }
         /// <summary>
-        /// Gоследние добавление глав
+        /// Latest added chapters
         /// </summary>
         public string LatestAddition { get; set; }
         /// <summary>
@@ -30,14 +30,5 @@
         {
             UriBook = uri;
         }
-        public NovelModel()
-        {
-
-        }
-        public override string ToString()
-        {
-            return $"fsfsd {Title}"; 
-        }
-
     }
 }

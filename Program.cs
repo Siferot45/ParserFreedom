@@ -23,14 +23,16 @@ using var client = new HttpClient(handler);
 
 using var getterConfig = new HttpConfig(client, cookieContainer);
 var novelInfo = new FreedomInfoGetter(getterConfig);
+var novelChapter = new FreedomGetter(getterConfig);
 
 Console.WriteLine("Ведите название книги.");
-var novelName = "Сильнейшая Система Убийцы Драконов";
+var novelName = "Проблемные дети приходят из другого мира, верно";
 
 try
 {
     var t = await novelInfo.Get(novelName);
     PrintInfoNovel.PrintInfo(t);
+    var s = await novelChapter.Get(t.UriBook.ToString());
 }
 catch (Exception ex)
 {
