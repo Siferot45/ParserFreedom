@@ -19,6 +19,7 @@ public class FreedomGetter : BaseGetter
 
         var novel = new NovelModel(uri)
         {
+            Title = doc.GetTextBySelector("/html/body/div[1]/main/div/div[2]/div[1]/div[2]/h1"),
             Chapters = await FillChapters(doc, uri)
         };
         return novel;
@@ -38,8 +39,24 @@ public class FreedomGetter : BaseGetter
                 Title = urlChapter.Title
             };
             Console.WriteLine($"Загрузка главы {urlChapter.Title}");
+
+            var chapterDoc = await GetChapter(urlChapter.Uri);
+
+            if (chapterDoc != default)
+            {
+                chapter.Content = chapterDoc.DocumentNode.InnerHtml;
+            }
+            resalt.Add(chapter);
         }
         return resalt;
+    }
+    private async Task<HtmlDocument> GetChapter(Uri uri)
+    {
+        var doc = await Config.Client.GetHtmlDocWithTriesAsync(uri);
+        var content = doc.QuerySelector("div.entry-content");
+        var notice = content.QuerySelector("div.single-notice");
+
+        return notice?.GetText() == "Для чтения купите главу." ? default : content.InnerHtml.AsHtmlDoc().RemoveNodes("div[class*=adv]");
     }
 }
 

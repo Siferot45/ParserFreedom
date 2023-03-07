@@ -1,5 +1,6 @@
 ﻿using ParserFreedom.Configs;
 using ParserFreedom.Getters;
+using ParserFreedom.Login;
 using ParserFreedom.Models;
 using ParserFreedom.Prints;
 using System.Net;
@@ -21,20 +22,34 @@ using var handler = new HttpClientHandler
 };
 using var client = new HttpClient(handler);
 
-using var getterConfig = new HttpConfig(client, cookieContainer);
+using var getterConfig = new HttpConfig(client, cookieContainer, TempFolderFactory.Create());
 var novelInfo = new FreedomInfoGetter(getterConfig);
 var novelChapter = new FreedomGetter(getterConfig);
+var novel = new NovelModel();
+
 
 Console.WriteLine("Ведите название книги.");
-var novelName = "Проблемные дети приходят из другого мира, верно";
+var novelName = Console.ReadLine();
 
 try
 {
     var t = await novelInfo.Get(novelName);
     PrintInfoNovel.PrintInfo(t);
-    var s = await novelChapter.Get(t.UriBook.ToString());
+
+    Console.WriteLine("Хотите скачать ранобэ нажмите Y");
+    var novelDownload = Console.ReadLine();
+
+    if (novelDownload?.ToLower() == "y")
+    {
+        var s = await novelChapter.Get(t.UriBook.ToString());
+        await s.Save(GetBuilder(), "Patterns");
+    }
 }
 catch (Exception ex)
 {
     Console.WriteLine(ex.Message);
+}
+static BuilderBase GetBuilder()
+{
+    return Fb2Builder.Create();
 }

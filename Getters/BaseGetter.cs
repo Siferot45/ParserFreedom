@@ -1,5 +1,6 @@
 ﻿using ParserFreedom.Configs;
 using ParserFreedom.Models;
+using TempFolder;
 
 namespace ParserFreedom.Getters
 {
@@ -10,9 +11,10 @@ namespace ParserFreedom.Getters
         /// Базовые Url
         /// </summary>
         public abstract Uri SystemUri { get; }
+        
         public BaseGetter(HttpConfig config)
         {
-            Config = config;
+            Config = config;       
         }
         public abstract Task<NovelModel> Get(string rawNonelTitle);
 

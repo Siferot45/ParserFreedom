@@ -1,4 +1,7 @@
-﻿namespace ParserFreedom.Models
+﻿using ParserFreedom.Extensions;
+using ParserFreedom.Login;
+
+namespace ParserFreedom.Models
 {
     public class NovelModel
     {
@@ -26,9 +29,25 @@
         /// Uri novel location
         /// </summary>
         public Uri UriBook { get; set; }
+
         public NovelModel(Uri uri)
         {
             UriBook = uri;
+        }
+        public NovelModel()
+        {
+        }
+        public async Task Save(BuilderBase builder, string resourcesPath)
+        {
+            var title = $"{Title}".Crop(100);
+
+            await builder
+                .WithNovelUrl(UriBook)
+                .WithTitle(title)
+                .WithFiles(resourcesPath, "*.ttf")
+                .WithFiles(resourcesPath, "*.css")
+                .WithChapter(Chapters)
+                .Builder(@"D:\ранобе", title);
         }
     }
 }

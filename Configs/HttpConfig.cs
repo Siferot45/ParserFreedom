@@ -6,14 +6,17 @@ namespace ParserFreedom.Configs
     {
         public HttpClient Client { get; }
         public CookieContainer CookieContainer { get; }
-        public HttpConfig(HttpClient client, CookieContainer cookieContainer)
+        public TempFolder.TempFolder TempFolder { get; }
+        public HttpConfig(HttpClient client, CookieContainer cookieContainer, TempFolder.TempFolder tempFolder)
         {
             Client = client;
             CookieContainer = cookieContainer;
+            TempFolder = tempFolder;
         }
 
         public void Dispose()
         {
+            TempFolder?.Dispose();
             Client?.Dispose();
         }
     }

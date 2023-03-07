@@ -34,5 +34,20 @@ namespace ParserFreedom.Extensions
         {
             return node?.InnerText?.HtmlDecode();
         }
+        public static HtmlNode RemoveNodes(this HtmlNode node, string selector)
+        {
+            var toRemove = node.QuerySelectorAll(selector);
+            foreach (var itemNode in toRemove)
+            {
+                itemNode.Remove();
+            }
+            return node;
+        }
+        public static HtmlDocument RemoveNodes(this HtmlDocument doc, string selector)
+        {
+            doc.DocumentNode.RemoveNodes(selector);
+            return doc;
+        }
+
     }
 }
